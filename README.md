@@ -1,6 +1,8 @@
-**Please note that this is a work in progress**
+## **Please note that this is a work in progress**
 
-Empower your career journey effortlessly with our intuitive resume builder. Craft, share, and showcase your professional story easily, saving time and hassle.
+# Cool Resume
+
+Craft, share, and showcase your professional story easily, saving time and hassle.
 
 ## Technologies used:
 
@@ -38,27 +40,29 @@ npm install
     wrangler login
     ```
 
-    Follow the prompts to log in to your Cloudflare account.
+    > Follow the prompts to log in to your Cloudflare account.
 
 -   **Create Project**
-    You can create a project via the Cloudflare dashboard or using the CLI.
 
     ```bash
     wrangler pages project create <PROJECT_NAME>
     ```
 
+    > You can create a project via the Cloudflare dashboard or using the CLI.
+
 -   **Create Database**:
-    You can create a database via the Cloudflare dashboard or using the CLI.
 
     ```bash
     wrangler d1 create <DATABASE_NAME>
     ```
 
+    > You can create a database via the Cloudflare dashboard or using the CLI.
+
 -   **Create R2 Bucket**:
-    You can create a bucket via the Cloudflare dashboard or using the CLI.
     ```bash
     wrangler r2 bucket create <NAME>
     ```
+    > You can create a bucket via the Cloudflare dashboard or using the CLI.
 
 ### 4. Configure Wrangler
 
@@ -119,3 +123,16 @@ Then, deploy your project by running
 ```bash
 npm run deploy
 ```
+
+## Roadmap
+
+> The "✅" mark means the feature is implemented, while the "⬜️" mark means the feature is waiting for implementation.
+
+-   ✅ Login/signup functionality
+-   ✅ Resume page UI
+-   ✅ Update resume
+-   ✅ Upload profile picture
+-   ⬜️ Landing page
+-   ⬜️ Social login
+-   ⬜️ Responsive Navbar
+-   ⬜️ Header section
