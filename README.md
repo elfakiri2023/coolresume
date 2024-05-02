@@ -1,3 +1,5 @@
+**Please note that this is a work in progress**
+
 Empower your career journey effortlessly with our intuitive resume builder. Craft, share, and showcase your professional story easily, saving time and hassle.
 
 ## Technologies used:
@@ -53,10 +55,10 @@ npm install
     ```
 
 -   **Create R2 Bucket**:
+    You can create a bucket via the Cloudflare dashboard or using the CLI.
     ```bash
     wrangler r2 bucket create <NAME>
     ```
-    You can create a bucket via the Cloudflare dashboard or using the CLI.
 
 ### 4. Configure Wrangler
 
