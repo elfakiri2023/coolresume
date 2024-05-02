@@ -1,0 +1,257 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+@layer components {
+	.editable {
+		@apply rounded-none;
+		@apply break-words;
+		@apply outline-none;
+		@apply focus:outline-2;
+		@apply focus:outline-primary-500;
+		@apply focus:rounded-md;
+	}
+
+	.socialBtn {
+		@apply flex;
+		@apply w-9;
+		@apply h-9;
+		@apply justify-center;
+		@apply items-center;
+		@apply rounded-lg;
+		@apply bg-primary-200;
+		@apply dark:bg-gray-800/60;
+		@apply hover:dark:bg-gray-800;
+		@apply bg-primary-50;
+		@apply hover:bg-primary-400;
+	}
+
+	.edit-pen {
+		@apply cursor-pointer;
+		@apply text-white;
+		@apply bg-gray-800/30;
+		@apply hover:bg-gray-800/70;
+		@apply dark:bg-gray-800;
+		@apply dark:text-primary-500;
+		@apply rounded-full;
+		@apply m-1;
+		@apply p-1;
+		@apply w-6;
+		@apply h-6;
+		@apply hover:dark:bg-gray-700;
+	}
+
+	.socialDrawerIcons {
+		@apply px-4;
+		@apply inline-flex;
+		@apply items-center;
+		@apply min-w-fit;
+		@apply bg-primary-200;
+		@apply dark:bg-gray-800/60;
+		@apply hover:dark:bg-gray-800;
+		@apply bg-primary-50;
+		@apply hover:bg-primary-400;
+	}
+
+	.facebook {
+		@apply text-[#3b5998];
+	}
+
+	.twitter {
+		@apply text-[#1da1f2];
+	}
+
+	.linkedin {
+		@apply text-[#0077b5];
+	}
+
+	.instagram {
+		@apply text-[#c13584];
+	}
+
+	.github {
+		@apply text-[#333];
+	}
+
+	.youtube {
+		@apply text-[#ff0000];
+	}
+
+	.pinterest {
+		@apply text-[#bd081c];
+	}
+
+	.tiktok {
+		@apply text-[#000];
+	}
+}
+
+html {
+	font-family: Poppins, sans-serif;
+}
+
+[contenteditable='false'][placeholder]:empty:before {
+	content: attr(placeholder);
+}
+
+/* modern theme */
+@font-face {
+	font-family: 'Quicksand';
+	src: url('/fonts/Quicksand.ttf');
+	font-display: swap;
+}
+/* rocket theme */
+@font-face {
+	font-family: 'Space Grotesk';
+	src: url('/fonts/SpaceGrotesk.ttf');
+	font-display: swap;
+}
+/* gold-nouveau theme */
+@font-face {
+	font-family: 'Quicksand';
+	src: url('/fonts/Quicksand.ttf');
+	font-display: swap;
+}
+/* vintage theme */
+@font-face {
+	font-family: 'Abril Fatface';
+	src: url('/fonts/AbrilFatface.ttf');
+	font-display: swap;
+}
+/* seafoam theme */
+@font-face {
+	font-family: 'Playfair Display';
+	src: url('/fonts/PlayfairDisplay-Italic.ttf');
+	font-display: swap;
+}
+
+/* poppins-200 - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 200;
+	src: url('/fonts/poppins/poppins-v21-latin-200.woff2') format('woff2');
+}
+/* poppins-300 - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 300;
+	src: url('/fonts/poppins/poppins-v21-latin-300.woff2') format('woff2');
+}
+/* poppins-regular - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/fonts/poppins/poppins-v21-latin-regular.woff2') format('woff2');
+}
+/* poppins-500 - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 500;
+	src: url('/fonts/poppins/poppins-v21-latin-500.woff2') format('woff2');
+}
+/* poppins-600 - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 600;
+	src: url('/fonts/poppins/poppins-v21-latin-600.woff2') format('woff2');
+}
+/* poppins-700 - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 700;
+	src: url('/fonts/poppins/poppins-v21-latin-700.woff2') format('woff2');
+}
+/* poppins-800 - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 800;
+	src: url('/fonts/poppins/poppins-v21-latin-800.woff2') format('woff2');
+}
+/* poppins-900 - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 900;
+	src: url('/fonts/poppins/poppins-v21-latin-900.woff2') format('woff2');
+}
+
+/* roboto-slab-200 - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Roboto Slab';
+	font-style: normal;
+	font-weight: 200;
+	src: url('/fonts/roboto-slab/roboto-slab-v34-latin-200.woff2') format('woff2');
+}
+/* roboto-slab-300 - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Roboto Slab';
+	font-style: normal;
+	font-weight: 300;
+	src: url('/fonts/roboto-slab/roboto-slab-v34-latin-300.woff2') format('woff2');
+}
+/* roboto-slab-regular - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Roboto Slab';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/fonts/roboto-slab/roboto-slab-v34-latin-regular.woff2') format('woff2');
+}
+/* roboto-slab-500 - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Roboto Slab';
+	font-style: normal;
+	font-weight: 500;
+	src: url('/fonts/roboto-slab/roboto-slab-v34-latin-500.woff2') format('woff2');
+}
+/* roboto-slab-600 - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Roboto Slab';
+	font-style: normal;
+	font-weight: 600;
+	src: url('/fonts/roboto-slab/roboto-slab-v34-latin-600.woff2') format('woff2');
+}
+/* roboto-slab-700 - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Roboto Slab';
+	font-style: normal;
+	font-weight: 700;
+	src: url('/fonts/roboto-slab/roboto-slab-v34-latin-700.woff2') format('woff2');
+}
+/* roboto-slab-800 - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Roboto Slab';
+	font-style: normal;
+	font-weight: 800;
+	src: url('/fonts/roboto-slab/roboto-slab-v34-latin-800.woff2') format('woff2');
+}
+/* roboto-slab-900 - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Roboto Slab';
+	font-style: normal;
+	font-weight: 900;
+	src: url('/fonts/roboto-slab/roboto-slab-v34-latin-900.woff2') format('woff2');
+}

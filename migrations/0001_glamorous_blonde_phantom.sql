@@ -1,0 +1,1 @@
+ALTER TABLE user ADD `image_url` text;
