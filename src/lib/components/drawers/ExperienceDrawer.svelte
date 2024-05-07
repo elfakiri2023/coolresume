@@ -1,6 +1,6 @@
 <script>
 	import { sendRequest } from '$lib/shared/sendRequest'
-	import { getToastStore, getDrawerStore, initializeStores } from '@skeletonlabs/skeleton'
+	import { getToastStore, getDrawerStore } from '@skeletonlabs/skeleton'
 	import { resume } from '$lib/stores/userData'
 	import GeneralIcons from '$lib/components/icons/GeneralIcons.svelte'
 
@@ -8,6 +8,12 @@
 	const drawerStore = getDrawerStore()
 
 	let formFields = initializeformFields()
+
+	$: {
+		if ($drawerStore.meta.data.page === 'add') {
+			formFields = initializeformFields()
+		}
+	}
 
 	function initializeformFields() {
 		return {
@@ -61,7 +67,6 @@
 			} else if ($drawerStore.meta.data.page === 'edit') {
 				const index = $resume.experiences.findIndex((experience) => experience.id === data.id)
 				$resume.experiences[index] = responseData
-				formFields = initializeformFields()
 			}
 		}
 
@@ -91,33 +96,39 @@
 							>
 						</td>
 					</tr>
+				{:else}
+					<tr>
+						<td colspan="3" class="text-center">Click <span class="text-bold">+</span> to add a new experience</td>
+					</tr>
 				{/each}
 			</tbody>
 		</table>
 	</div>
 {:else}
-	<form class="space-y-5" on:submit|preventDefault={addExperience}>
-		<div>
-			<label for="company" class="label mb-2 text-sm font-medium">Company</label>
-			<input value={formFields.company} type="text" name="company" class="input" placeholder="Enter company name" required />
-		</div>
-		<div>
-			<label for="position" class="label mb-2 text-sm font-medium">Position</label>
-			<input value={formFields.position} type="text" name="position" class="input" placeholder="Enter position" required />
-		</div>
-		<div>
-			<label for="start_date" class="label mb-2 text-sm font-medium">Start Date</label>
-			<input value={formFields.start_date} type="text" name="start_date" class="input" placeholder="Enter start date" required />
-		</div>
-		<div>
-			<label for="end_date" class="label mb-2 text-sm font-medium">End Date</label>
-			<input value={formFields.end_date} type="text" name="end_date" class="input" placeholder="Enter end date" required />
-		</div>
-		<div>
-			<label for="description" class="label mb-2 text-sm font-medium">Description</label>
-			<textarea name="description" class="textarea" rows="4" placeholder="Enter description" required>{formFields.description}</textarea>
-		</div>
-		<input type="hidden" name="id" value={formFields.id} />
-		<button type="submit" class="hidden" id="experience" />
-	</form>
+	{#key formFields}
+		<form class="space-y-5" on:submit|preventDefault={addExperience}>
+			<div>
+				<label for="company" class="label mb-2 text-sm font-medium">Company</label>
+				<input value={formFields.company} type="text" name="company" class="input" placeholder="Enter company name" required />
+			</div>
+			<div>
+				<label for="position" class="label mb-2 text-sm font-medium">Position</label>
+				<input value={formFields.position} type="text" name="position" class="input" placeholder="Enter position" required />
+			</div>
+			<div>
+				<label for="start_date" class="label mb-2 text-sm font-medium">Start Date</label>
+				<input value={formFields.start_date} type="text" name="start_date" class="input" placeholder="Enter start date" required />
+			</div>
+			<div>
+				<label for="end_date" class="label mb-2 text-sm font-medium">End Date</label>
+				<input value={formFields.end_date} type="text" name="end_date" class="input" placeholder="Enter end date" required />
+			</div>
+			<div>
+				<label for="description" class="label mb-2 text-sm font-medium">Description</label>
+				<textarea name="description" class="textarea" rows="4" placeholder="Enter description" required>{formFields.description}</textarea>
+			</div>
+			<input type="hidden" name="id" value={formFields.id} />
+			<button type="submit" class="hidden" id="experience" />
+		</form>
+	{/key}
 {/if}

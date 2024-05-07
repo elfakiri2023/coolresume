@@ -34,7 +34,7 @@
 			</div>
 		{/if}
 	</div>
-	<div class="grid grid-cols-4 lg:grid-cols-12 lg:gap-6 px-4">
+	<div class="grid grid-cols-4 lg:grid-cols-12 lg:gap-6 px-4 pb-16">
 		<Sidebar />
 		<Content />
 	</div>

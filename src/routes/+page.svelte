@@ -56,7 +56,7 @@
 						</div>
 					</div>
 					<div class="float relative h-full p-2 mt-12 overflow-hidden border rounded-3xl shadow-xl">
-						<img src="/images/intro-preview-light.png" alt="intro" class="object-cover h-full border shadow-2xl rounded-2xl" />
+						<img src="/images/intro.png" alt="intro" class="object-cover h-full border shadow-2xl rounded-2xl" />
 					</div>
 				</div>
 			</div>

@@ -63,13 +63,17 @@
 			const data = await getPresignedUrlResponse.json()
 
 			if (data.success) {
-				$user.image_url = data.key
+				$resume.user.image_url = data.key
+				return toastStore.trigger({
+					message: 'Your resume picture has been updated successfully.',
+					background: 'variant-filled-success'
+				})
 			}
 		}
 	}
 </script>
 
-<div class="col-span-4 lg:col-span-3">
+<div class="col-span-4 lg:col-span-3 lg:self-start lg:sticky lg:top-5">
 	<div class="card shadow lg:rounded-2xl p-4 rounded-none">
 		<div class="flex flex-col">
 			<div class="relative w-40 h-40 mx-auto my-4">
@@ -105,9 +109,9 @@
 		<div class="group relative">
 			<div class="flex flex-col">
 				<span class="uppercase font-bold tracking-wider mb-2">Skills</span>
-				<div class="flex justify-center flex-wrap gap-2 px-4 mx-auto my-4 text-sm">
+				<div class="flex justify-center flex-wrap gap-2 mx-auto my-4 text-sm">
 					{#each $resume.user.skills as skill}
-						<span class="px-2 py-1 rounded bg-gray-200 dark:bg-gray-200/70 text-gray-700 hover:bg-gray-300">{skill}</span>
+						<span class="px-2 py-1 rounded bg-gray-200 dark:bg-gray-200/70 text-gray-800 hover:bg-gray-300">{skill}</span>
 					{:else}
 						<p>You didn't add any no skills yet</p>
 					{/each}
