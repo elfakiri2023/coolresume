@@ -9,8 +9,8 @@ export const load = async ({ locals, params }) => {
 		return redirect(302, '/')
 	}
 
-	// For some unkown reasons I can't so joins query with drizzle orm
-	// So for now I will use 3 diffrents queries and comine the resultsy
+	// For some unkown reasons I can't use join query on drizzle orm
+	// So for now I will use 3 diffrents queries and comine the results
 
 	const user = await locals.DB.query.userTable.findFirst({
 		where: eq(userTable.username, username)
@@ -19,6 +19,8 @@ export const load = async ({ locals, params }) => {
 	if (!user?.id) {
 		return redirect(302, '/')
 	}
+
+	user.skills = user.skills && typeof user.skills === 'string' ? user.skills.split(',') : []
 
 	const social = await locals.DB.query.socialTable.findFirst({
 		where: eq(socialTable.user_id, user.id)

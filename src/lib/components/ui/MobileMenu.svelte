@@ -1,11 +1,11 @@
 <script>
-	import { writable } from 'svelte/store'
+	import { mobileNavOpen } from '$lib/stores/general'
 	import { fade } from 'svelte/transition'
 	import { clickOutside } from '$lib/shared/clickOutside'
+	import GeneralIcons from '$lib/components/icons/GeneralIcons.svelte'
 
 	import Navigation from '$lib/components/ui/Navigation.svelte'
 
-	let mobileNavOpen = writable(false)
 	let trigger
 	let mobileNav
 
@@ -28,15 +28,11 @@
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div use:clickOutside on:keydown={handleKeyDown} on:clickOutside={(() => console.log('xxxx'), mobileNavOpen.set(false))} class="flex md:hidden">
+<div use:clickOutside on:keydown={handleKeyDown} on:clickOutside={() => mobileNavOpen.set(false)} class="flex md:hidden">
 	<!-- Hamburger button -->
 	<button bind:this={trigger} class="hamburger" class:active={$mobileNavOpen} aria-controls="mobile-nav" aria-expanded={$mobileNavOpen} on:click={toggleMobileNav}>
 		<span class="sr-only">Menu</span>
-		<svg class="w-6 h-6 fill-current text-surface-800 dark:text-primary-800" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-			<rect y="4" width="24" height="2" />
-			<rect y="11" width="24" height="2" />
-			<rect y="18" width="24" height="2" />
-		</svg>
+		<GeneralIcons name={$mobileNavOpen ? `close` : `burger`} class="w-7 h-7 fill-current text-surface-800 dark:text-primary-800" />
 	</button>
 
 	<!-- Mobile navigation -->

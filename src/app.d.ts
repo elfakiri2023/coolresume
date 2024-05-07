@@ -36,11 +36,13 @@ interface User {
 	id: string
 	github_id: number
 	username: string
+	image_url: string
 }
 
 interface DatabaseUserAttributes {
 	github_id: number
 	username: string
+	image_url: string
 }
 
 declare global {

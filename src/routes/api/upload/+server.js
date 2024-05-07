@@ -3,6 +3,7 @@ import { MAX_IMAGE_SIZE } from '$lib/consts'
 import { z } from 'zod'
 import { userTable } from '$lib/server/db/schema'
 import { eq } from 'drizzle-orm'
+import { ACCEPTED_IMAGETYPE_EXTENSIONS } from '$lib/consts'
 
 /**
  * @param {string} str
@@ -23,19 +24,8 @@ const slugifyString = (str) => {
  * @returns {string|boolean}
  */
 const imageExtension = (file) => {
-	const fileTypeToExtension = {
-		'image/jpeg': 'jpeg',
-		'image/jpg': 'jpg',
-		'image/png': 'png',
-		'image/gif': 'gif',
-		'image/webm': 'webm',
-		'image/webp': 'webp',
-		'image/svg+xml': 'svg',
-		'image/avif': 'avif'
-	}
-
 	// @ts-ignore
-	return fileTypeToExtension[file.type] || false
+	return ACCEPTED_IMAGETYPE_EXTENSIONS[file.type] || false
 }
 
 export const POST = async ({ request, locals }) => {
@@ -45,6 +35,7 @@ export const POST = async ({ request, locals }) => {
 
 	// @ts-ignore
 	const formData = Object.fromEntries(await request.formData())
+	const oldKey = locals.user.image_url
 	const schema = z.object({
 		image: z
 			.instanceof(File, {
@@ -62,14 +53,24 @@ export const POST = async ({ request, locals }) => {
 		schema.parse(formData)
 	} catch (error) {
 		// @ts-ignore
-		return json({ message: error.errors[0]?.message }, { status: 400 })
+		console.log(error)
+		//return json({ message: error.errors[0]?.message }, { status: 400 })
+		return json({ message: 'error' }, { status: 400 })
 	}
 
 	const image = formData.image
 	const ext = imageExtension(image)
-	const objectKey = `${slugifyString(locals.user.username)}.${ext}`
+	const objectKey = `${slugifyString(locals.user.username)}-${slugifyString(Date.now().toString())}.${ext}`
 
 	try {
+		if (oldKey) {
+			// delete old image first
+			const object = await locals.bucket.get(oldKey)
+			if (object) {
+				await locals.bucket.delete(oldKey)
+			}
+		}
+
 		const uploadedImage = await locals.bucket.put(objectKey, image)
 
 		if (uploadedImage.key) {

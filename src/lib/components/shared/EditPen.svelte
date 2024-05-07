@@ -1,8 +1,8 @@
 <script>
 	import { canEdit } from '$lib/stores/general'
-	import MdiEdit from '~icons/mdi/edit'
-	import { getDrawerStore } from '@skeletonlabs/skeleton'
-	import { getToastStore } from '@skeletonlabs/skeleton'
+	import GeneralIcons from '$lib/components/icons/GeneralIcons.svelte'
+	import { getDrawerStore, getToastStore } from '@skeletonlabs/skeleton'
+	import { sendRequest } from '$lib/shared/sendRequest'
 
 	const toastStore = getToastStore()
 	const drawerStore = getDrawerStore()
@@ -38,45 +38,60 @@
 		node.spellcheck = false
 		node.focus()
 
-		node.addEventListener('keydown', (event) => {
-			if (event.repeat) {
-				return
-			}
-
+		/**
+		 * @param {KeyboardEvent} event
+		 */
+		const keydownHandler = (event) => {
 			if ('Enter' === event.key) {
+				clear(node)
 				saveChanges(node)
 			}
-		})
+		}
+
+		node.addEventListener('keydown', keydownHandler)
 
 		/** @param {MouseEvent} event */
 		const handleClick = (event) => {
 			// @ts-ignore
 			if (node && !node.contains(event.target) && !event.defaultPrevented) {
-				document.removeEventListener('click', handleClick, true)
+				clear(node)
 				saveChanges(node)
 			}
 		}
 
-		// TODO: remove the event listener when the element is distroyed
 		document.addEventListener('click', handleClick, true)
+
+		/**
+		 * @param {HTMLElement} node
+		 */
+		const clear = (node) => {
+			node.removeEventListener('keydown', keydownHandler)
+			document.removeEventListener('click', handleClick, true)
+		}
 	}
 
 	function takeAction() {
-		let node = document.getElementById(element)
-
-		if (!node) {
-			return
-		}
-
 		// @ts-ignore
 		if (!meta?.component) {
+			let node = document.getElementById(element)
+
+			if (!node) {
+				return
+			}
 			makeEditable(node)
 		} else {
-			drawerStore.open({
-				id: 'social',
-				meta
-			})
+			openDrawer(element)
 		}
+	}
+
+	/**
+	 * @param {string} id
+	 */
+	function openDrawer(id) {
+		drawerStore.open({
+			id: id,
+			meta
+		})
 	}
 
 	/**
@@ -99,42 +114,13 @@
 	 * @returns {Promise<any>}
 	 */
 	async function sendUpdate(newValue) {
-		const response = await fetch('/api/update', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				key: element,
-				value: newValue
-			})
-		})
-
-		if (!response.ok) {
-			return toastStore.trigger({
-				message: `Oops! Something went wrong. Please try again later.`,
-				background: 'variant-filled-warning'
-			})
-		}
-
-		const data = await response.json()
-
-		if (data.status === 'error') {
-			return toastStore.trigger({
-				message: data.message,
-				background: 'variant-filled-warning'
-			})
-		}
-
-		toastStore.trigger({
-			message: 'Your changes have been successfully saved!',
-			background: 'variant-filled-primary'
-		})
+		const request = await sendRequest(element, newValue)
+		toastStore.trigger(request)
 	}
 </script>
 
 {#if $canEdit}
 	<button class={`absolute -top-8 right-0 ${classes}`} bind:this={btnElement} on:click={() => takeAction()}>
-		<MdiEdit class="edit-pen" />
+		<GeneralIcons name="edit" class="edit-pen" />
 	</button>
 {/if}

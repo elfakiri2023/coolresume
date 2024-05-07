@@ -2,16 +2,33 @@
 	import { Avatar } from '@skeletonlabs/skeleton'
 	import EditPen from '$lib/components/shared/EditPen.svelte'
 	import { canEdit } from '$lib/stores/general'
-	import { userData, resume } from '$lib/stores/userData'
-	import SocialIcons from '$lib/components/resume/sidebar/components/SocialIcons.svelte'
-	import { getToastStore } from '@skeletonlabs/skeleton'
-	import { MAX_IMAGE_SIZE } from '$lib/consts'
+	import { resume } from '$lib/stores/userData'
+	import Social from '$lib/components/resume/sidebar/components/Social.svelte'
+	import { getToastStore, getDrawerStore } from '@skeletonlabs/skeleton'
+	import { MAX_IMAGE_SIZE, ACCEPTED_IMAGETYPE_EXTENSIONS } from '$lib/consts'
 	import { PUBLIC_CDN_URL } from '$env/static/public'
 	import { user } from '$lib/stores/userData'
+	import { sendRequest } from '$lib/shared/sendRequest'
+	import SkillsDrawer from '$lib/components/drawers/SkillsDrawer.svelte'
 
-	$: imageUrl = $user.image_url ? `${PUBLIC_CDN_URL}/${$user.image_url}` : ``
+	$: imageUrl = $resume.user.image_url ? `${PUBLIC_CDN_URL}/${$resume.user.image_url}` : ``
 
 	const toastStore = getToastStore()
+	const drawerStore = getDrawerStore()
+
+	const skills = $resume.user.skills
+
+	const meta = {
+		component: SkillsDrawer,
+		data: { skills },
+		save: async () => {
+			const request = await sendRequest('skills', skills)
+			toastStore.trigger(request)
+		},
+		cancel: () => {
+			drawerStore.close()
+		}
+	}
 
 	/**
 	 * @param {Event} event
@@ -52,13 +69,19 @@
 	}
 </script>
 
-<div class="col-span-4 md:col-span-3">
-	<div class="card shadow lg:rounded-2xl p-4">
+<div class="col-span-4 lg:col-span-3">
+	<div class="card shadow lg:rounded-2xl p-4 rounded-none">
 		<div class="flex flex-col">
 			<div class="relative w-40 h-40 mx-auto my-4">
-				<Avatar class="w-40 h-40 rounded-full shrink-0 shadow-sm" draggable="false" alt={$user.full_name || $user.username} src={imageUrl}></Avatar>
+				<Avatar
+					class="w-40 h-40 rounded-full shrink-0 shadow-sm"
+					draggable="false"
+					alt={$resume.user.full_name || $resume.user.username}
+					src={imageUrl || `/images/default-profile-picture.jpg`}
+					fallback="/images/default-profile-picture.jpg"
+				></Avatar>
 				{#if $canEdit}
-					<input type="file" id="fileUpload" class="hidden" on:change={handleFileUpload} accept="image/jpeg,image/jpg,image/png,image/gif,image/bmp,image/webp" />
+					<input type="file" id="fileUpload" class="hidden" on:change={handleFileUpload} accept={Object.keys(ACCEPTED_IMAGETYPE_EXTENSIONS).join(', ')} />
 					<label for="fileUpload" class="absolute top-0 left-0 w-full h-full rounded-full hover:bg-primary-500 hover:bg-opacity-30 cursor-pointer flex items-center justify-center text-primary-50 opacity-0 hover:opacity-100"
 						>Upload</label
 					>
@@ -76,18 +99,21 @@
 				</p>
 				<EditPen element="job_title" classes="top-1 -right-4" />
 			</div>
-			<SocialIcons />
+			<Social />
 		</div>
 		<hr class="my-4 border-t" />
-		<div class="flex flex-col">
-			<span class="uppercase font-bold tracking-wider mb-2">Skills</span>
-			<ul>
-				<li class="mb-2">JavaScript</li>
-				<li class="mb-2">React</li>
-				<li class="mb-2">Node.js</li>
-				<li class="mb-2">HTML/CSS</li>
-				<li class="mb-2">Tailwind Css</li>
-			</ul>
+		<div class="group relative">
+			<div class="flex flex-col">
+				<span class="uppercase font-bold tracking-wider mb-2">Skills</span>
+				<div class="flex justify-center flex-wrap gap-2 px-4 mx-auto my-4 text-sm">
+					{#each $resume.user.skills as skill}
+						<span class="px-2 py-1 rounded bg-gray-200 dark:bg-gray-200/70 text-gray-700 hover:bg-gray-300">{skill}</span>
+					{:else}
+						<p>You didn't add any no skills yet</p>
+					{/each}
+				</div>
+			</div>
+			<EditPen element="skills" {meta} classes="top-0 -right-4" />
 		</div>
 	</div>
 </div>

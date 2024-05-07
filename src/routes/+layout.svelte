@@ -2,12 +2,16 @@
 	import '../app.postcss'
 	import { initializeStores } from '@skeletonlabs/skeleton'
 	import { Drawer, getDrawerStore } from '@skeletonlabs/skeleton'
-	import { Toast, getToastStore } from '@skeletonlabs/skeleton'
-	import IconoirCancel from '~icons/iconoir/cancel'
-	import MdiSuccess from '~icons/mdi/success'
+	import { Toast } from '@skeletonlabs/skeleton'
+	import GeneralIcons from '$lib/components/icons/GeneralIcons.svelte'
 	import Navbar from '$lib/components/ui/Navbar.svelte'
 	import { loggedIn } from '$lib/stores/general'
 	import { user } from '$lib/stores/userData'
+	import Head from '$lib/components/shared/Head.svelte'
+	import { beforeNavigate } from '$app/navigation'
+	import { mobileNavOpen } from '$lib/stores/general'
+
+	beforeNavigate(() => mobileNavOpen.set(false))
 
 	export let data
 
@@ -23,20 +27,51 @@
 
 <Toast />
 
-<Drawer position="right" width="w-5/6 sm:w-1/2 md:w-1/3" bgBackdrop="bg-transparent">
+<Drawer position="right" width="w-5/6 sm:w-1/2 lg:w-1/3" bgBackdrop="bg-transparent">
 	{#if $drawerStore.meta.component}
 		<div class="p-4 mb-4 flex justify-end space-x-2">
-			<button class="rounded-full border-2 border-red-500" on:click={() => drawerStore.close()}>
-				<IconoirCancel class="w-6 h-6 text-red-500" />
-			</button>
-			<button class="rounded-full border-2 border-green-500" on:click={() => $drawerStore.meta?.save()}>
-				<MdiSuccess class="w-6 h-6 text-green-500" />
+			{#if $drawerStore.meta?.add && $drawerStore.meta.data?.page === 'index'}
+				<button class="rounded-full border-2 border-secondary-400 dark:border-secondary-300" on:click={() => $drawerStore.meta?.add()}>
+					<GeneralIcons name="add" class="w-6 h-6 text-secondary-400 dark:text-secondary-300" />
+				</button>
+			{/if}
+			{#if !$drawerStore.meta?.add || ($drawerStore.meta?.add && $drawerStore.meta.data?.page !== 'index')}
+				<button
+					class="rounded-full border-2 border-green-500"
+					on:click={() => {
+						if ($drawerStore.meta?.add && $drawerStore.meta.data?.page !== 'index') {
+							document.getElementById($drawerStore.id).click()
+						} else {
+							$drawerStore.meta?.save()
+							drawerStore.close()
+						}
+					}}
+				>
+					<GeneralIcons name="success" class="w-6 h-6 text-green-500" />
+				</button>
+			{/if}
+			<button
+				class="rounded-full border-2 border-red-500"
+				on:click={() => {
+					if ($drawerStore.meta?.add && $drawerStore.meta.data?.page !== 'index') {
+						$drawerStore.meta.data.page = 'index'
+					} else {
+						$drawerStore.meta?.cancel()
+					}
+				}}
+			>
+				<GeneralIcons name="cancel" class="w-6 h-6 text-red-500" />
 			</button>
 		</div>
-		<svelte:component this={$drawerStore.meta.component} />
+		<div class="container">
+			<div class="space-y-5">
+				<svelte:component this={$drawerStore.meta.component} data={$drawerStore.meta.data} />
+			</div>
+		</div>
 	{/if}
 </Drawer>
 
+<Head />
 <main class="grow">
 	<div class="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
 		<Navbar />

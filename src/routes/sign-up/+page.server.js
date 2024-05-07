@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit'
 import { generateId } from 'lucia'
-import { userTable, experienceTable, socialTable } from '$lib/server/db/schema'
+import { userTable, socialTable } from '$lib/server/db/schema'
 import { validateCaptcha } from '$lib/server/captcha'
 import { createPasswordHash } from '$lib/server/password-hasher'
 import { z } from 'zod'
@@ -55,14 +55,15 @@ export const actions = {
 				email
 			})
 
-			await locals.DB.insert(experienceTable).values({
-				id: generateId(15),
-				user_id: userId
-			})
-
 			await locals.DB.insert(socialTable).values({
 				id: generateId(15),
-				user_id: userId
+				user_id: userId,
+				facebook: '#',
+				youtube: '#',
+				github: '#',
+				linkedin: '#',
+				twitter: '#',
+				instagram: '#'
 			})
 
 			const lucia = locals.lucia
@@ -87,6 +88,6 @@ export const actions = {
 		}
 
 		loggedIn.set(true)
-		return redirect(302, `/${username}`)
+		return redirect(302, `/${username}?welcome`)
 	}
 }

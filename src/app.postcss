@@ -55,11 +55,11 @@
 	}
 
 	.facebook {
-		@apply text-[#3b5998];
+		@apply text-[#1773EA];
 	}
 
 	.twitter {
-		@apply text-[#1da1f2];
+		@apply text-[#1DA1F2];
 	}
 
 	.linkedin {
@@ -71,15 +71,11 @@
 	}
 
 	.github {
-		@apply text-[#333];
+		@apply text-[#fafbfc];
 	}
 
 	.youtube {
 		@apply text-[#ff0000];
-	}
-
-	.pinterest {
-		@apply text-[#bd081c];
 	}
 
 	.tiktok {
@@ -93,6 +89,26 @@ html {
 
 [contenteditable='false'][placeholder]:empty:before {
 	content: attr(placeholder);
+}
+
+.float {
+	transform: translatey(0px);
+	animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+	0% {
+		box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+		transform: translatey(0px);
+	}
+	50% {
+		box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
+		transform: translatey(-10px);
+	}
+	100% {
+		box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+		transform: translatey(0px);
+	}
 }
 
 /* modern theme */

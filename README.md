@@ -123,16 +123,3 @@ Then, deploy your project by running
 ```bash
 npm run deploy
 ```
-
-## Roadmap
-
-> The "✅" mark means the feature is implemented, while the "⬜️" mark means the feature is waiting for implementation.
-
--   ✅ Login/signup functionality
--   ✅ Resume page UI
--   ✅ Update resume
--   ✅ Upload profile picture
--   ⬜️ Landing page
--   ⬜️ Social login
--   ⬜️ Responsive Navbar
--   ⬜️ Header section

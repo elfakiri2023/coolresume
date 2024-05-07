@@ -1,6 +1,9 @@
 <script>
 	import { enhance } from '$app/forms'
 	import Turnstile from '$lib/components/shared/Turnstile.svelte'
+	import { currentPage } from '$lib/stores/general'
+
+	currentPage.set('Login')
 
 	/** @type {import('./$types').ActionData} */
 	export let form
@@ -14,11 +17,11 @@
 		<form method="post" use:enhance>
 			<div class="mb-4">
 				<label for="username" class="label mb-2 text-sm font-medium">Username</label>
-				<input value="cacascasc" type="text" name="username" class="input" minlength="3" maxlength="24" required />
+				<input type="text" name="username" class="input" placeholder="Enter your username" minlength="3" maxlength="24" required />
 			</div>
 			<div class="mb-6">
 				<label for="password" class="block mb-2 text-sm font-medium">Password</label>
-				<input value="acascasc@sdvsdv.com" type="password" name="password" class="input" minlength="6" required />
+				<input type="password" name="password" class="input" placeholder="Enter your password" minlength="6" required />
 			</div>
 			<button class="hidden" id="submit" type="submit"></button>
 			<Turnstile bind:this={turnstileComponent} />
