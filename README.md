@@ -14,7 +14,7 @@ Craft, share, and showcase your professional story easily, saving time and hassl
 -   CLI: [Wrangler](https://github.com/cloudflare/workers-sdk)
 -   Authentication: [Lucia](https://github.com/lucia-auth/lucia)
 -   ORM: [Drizzle](https://github.com/drizzle-team/drizzle-or)
--   Email: [MailChannels](https://support.mailchannels.com/hc/en-us/articles/4565898358413-Sending-Email-from-Cloudflare-Workers-using-MailChannels-Send-API)
+-   Email sending: [MailChannels](https://support.mailchannels.com/hc/en-us/articles/4565898358413-Sending-Email-from-Cloudflare-Workers-using-MailChannels-Send-API)
 -   Data validation: [Zod](https://github.com/colinhacks/zod)
 -   Captcha: [Turnstile](https://www.cloudflare.com/products/turnstile)
 
@@ -134,6 +134,6 @@ npm run deploy
 
 ## TO-DO
 
--   ✅ Send email via sendgraid
+-   ✅ Send email with MailChannels
 -   ⬜️ Social login (Google, Github)
 -   ⬜️ About section (Email, Location, Timezone ..)
