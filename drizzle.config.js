@@ -1,58 +1,39 @@
-import * as path from 'node:path'
-import * as fs from 'node:fs'
+import { defineConfig } from 'drizzle-kit'
+import fs from 'fs'
+import path from 'path'
 
-/**
- *
- * @param {string} base
- * @param {string} ext
- * @param {string[]|null} files
- * @param {string[]|null} result
- * @returns
- */
-const findByExt = (base, ext, files = null, result = null) => {
-	let res = result ? result : []
-	const f = files || fs.readdirSync(base)
-	f.forEach((file) => {
-		const newbase = path.join(base, file)
-		if (fs.statSync(newbase).isDirectory()) {
-			res = findByExt(newbase, ext, fs.readdirSync(newbase), res)
-		} else {
-			if (file.slice(-1 * ext.length) === ext) {
-				res.push(newbase)
-			}
-		}
-	})
-	return res
-}
-
-const getLocalSqliteUrl = () => {
-	let sqliteFiles = []
+function getLocalD1DB() {
 	try {
-		sqliteFiles = findByExt('./.wrangler/state/v3/d1', '.sqlite')
-	} catch (e) {
-		console.error('failed to find, got error', e)
+		const basePath = path.resolve('.wrangler')
+		const dbFile = fs.readdirSync(basePath, { encoding: 'utf-8', recursive: true }).find((f) => f.endsWith('.sqlite'))
+
+		if (!dbFile) {
+			throw new Error(`.sqlite file not found in ${basePath}`)
+		}
+
+		const url = path.resolve(basePath, dbFile)
+		return url
+	} catch (err) {
+		console.log(`Error  ${err.message}`)
 	}
-	if (sqliteFiles.length === 0) {
-		console.warn('No sqlite files found in .wrangler folder')
-	}
-	return sqliteFiles[0] || ''
 }
 
-/**
- * This is the config for __drizzle-kit__.
- * It's used to generate migrations for the database.
- * You can find documentation here: https://orm.drizzle.team/kit-docs/conf.
- *
- * If you are looking for how to apply and list available migrations see __Cloudflare D1__
- * documentation: https://developers.cloudflare.com/workers/wrangler/commands/#d1 and
- * __package.json__ file.
- */
-
-export default {
+export default defineConfig({
+	dialect: 'sqlite',
 	schema: './src/lib/server/db/schema.js',
 	out: './migrations',
-	driver: 'better-sqlite',
-	dbCredentials: {
-		url: getLocalSqliteUrl()
-	}
-}
+	...(process.env.NODE_ENV === 'production'
+		? {
+				driver: 'd1-http',
+				dbCredentials: {
+					accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
+					databaseId: process.env.CLOUDFLARE_DATABASE_ID,
+					token: process.env.CLOUDFLARE_D1_TOKEN
+				}
+			}
+		: {
+				dbCredentials: {
+					url: getLocalD1DB()
+				}
+			})
+})

@@ -1,9 +1,10 @@
 <script>
 	import { sendRequest } from '$lib/shared/sendRequest'
-	import { getToastStore, getDrawerStore } from '@skeletonlabs/skeleton'
+	import { getToastStore, getDrawerStore, getModalStore } from '@skeletonlabs/skeleton'
 	import { resume } from '$lib/stores/userData'
 	import GeneralIcons from '$lib/components/icons/GeneralIcons.svelte'
 
+	const modalStore = getModalStore()
 	const toastStore = getToastStore()
 	const drawerStore = getDrawerStore()
 
@@ -39,9 +40,23 @@
 	}
 
 	async function removeExperience(id) {
-		const toast = await sendRequest('experience_remove', id)
-		toastStore.trigger(toast)
-		$resume.experiences = $resume.experiences.filter((experience) => experience.id !== id)
+		const modal = {
+			type: 'confirm',
+			title: 'Please Confirm',
+			body: 'Are you sure you wish to delete this experience?',
+			buttonNeutral: 'variant-ghost-surface',
+			buttonPositive: 'variant-filled-error',
+			buttonTextConfirm: 'Yes, delete1',
+			response: async (confirmed) => {
+				if (confirmed) {
+					const toast = await sendRequest('experience_remove', id)
+					toastStore.trigger(toast)
+					$resume.experiences = $resume.experiences.filter((experience) => experience.id !== id)
+				}
+			}
+		}
+
+		modalStore.trigger(modal)
 	}
 
 	async function addExperience(e) {

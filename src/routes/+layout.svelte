@@ -2,7 +2,7 @@
 	import '../app.postcss'
 	import { initializeStores } from '@skeletonlabs/skeleton'
 	import { Drawer, getDrawerStore } from '@skeletonlabs/skeleton'
-	import { Toast } from '@skeletonlabs/skeleton'
+	import { Toast, Modal } from '@skeletonlabs/skeleton'
 	import GeneralIcons from '$lib/components/icons/GeneralIcons.svelte'
 	import Navbar from '$lib/components/ui/Navbar.svelte'
 	import { loggedIn } from '$lib/stores/general'
@@ -25,6 +25,7 @@
 	/* https://tourguidejs.com/docs/ */
 </script>
 
+<Modal />
 <Toast />
 
 <Drawer position="right" width="w-5/6 sm:w-1/2 lg:w-1/3" bgBackdrop="bg-transparent">

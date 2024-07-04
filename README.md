@@ -45,7 +45,7 @@ npm install
 -   **Create Project**
 
     ```bash
-    wrangler pages project create <PROJECT_NAME>
+    wrangler pages project create coolresume
     ```
 
     > You can create a project via the Cloudflare dashboard or using the CLI.
@@ -53,14 +53,14 @@ npm install
 -   **Create Database**:
 
     ```bash
-    wrangler d1 create <DATABASE_NAME>
+    wrangler d1 create coolresume_db
     ```
 
     > You can create a database via the Cloudflare dashboard or using the CLI.
 
 -   **Create R2 Bucket**:
     ```bash
-    wrangler r2 bucket create <NAME>
+    wrangler r2 bucket create coolresume_bucket
     ```
     > You can create a bucket via the Cloudflare dashboard or using the CLI.
 

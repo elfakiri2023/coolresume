@@ -4,13 +4,16 @@ export const userTable = sqliteTable('user', {
 	id: text('id').notNull().primaryKey(),
 	username: text('username').notNull().unique(),
 	github_id: integer('github_id', { mode: 'number' }).unique(),
-	email: text('email').notNull(),
+	email: text('email').notNull().unique(),
 	password: text('password').notNull(),
 	full_name: text('full_name'),
 	job_title: text('job_title'),
 	about: text('about'),
 	skills: text('skills'),
-	image_url: text('image_url')
+	image_url: text('image_url'),
+	phone_number: text('phone_number'),
+	location: text('location'),
+	contact_email: text('contact_email')
 })
 
 export const experienceTable = sqliteTable('experience', {

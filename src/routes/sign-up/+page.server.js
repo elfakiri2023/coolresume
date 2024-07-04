@@ -81,6 +81,12 @@ export const actions = {
 				})
 			}
 
+			if (e instanceof Error && e.message === 'D1_ERROR: UNIQUE constraint failed: user.email') {
+				return fail(400, {
+					message: 'Email already used'
+				})
+			}
+
 			return fail(500, {
 				/* @ts-ignore */
 				message: 'An unknown error occurred ' + e?.message

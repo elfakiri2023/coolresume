@@ -15,6 +15,20 @@
       "when": 1714156443391,
       "tag": "0001_glamorous_blonde_phantom",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1715090805683,
+      "tag": "0002_cooing_talon",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1715091172876,
+      "tag": "0003_lazy_bloodstorm",
+      "breakpoints": true
     }
   ]
 }

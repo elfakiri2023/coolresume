@@ -8,13 +8,16 @@
 	import { MAX_IMAGE_SIZE, ACCEPTED_IMAGETYPE_EXTENSIONS } from '$lib/consts'
 	import { PUBLIC_CDN_URL } from '$env/static/public'
 	import { user } from '$lib/stores/userData'
+	import { getModalStore } from '@skeletonlabs/skeleton'
 	import { sendRequest } from '$lib/shared/sendRequest'
 	import SkillsDrawer from '$lib/components/drawers/SkillsDrawer.svelte'
+	import SendMessage from '$lib/components/modals/SendMessage.svelte'
 
 	$: imageUrl = $resume.user.image_url ? `${PUBLIC_CDN_URL}/${$resume.user.image_url}` : ``
 
 	const toastStore = getToastStore()
 	const drawerStore = getDrawerStore()
+	const modalStore = getModalStore()
 
 	const skills = $resume.user.skills
 
@@ -28,6 +31,15 @@
 		cancel: () => {
 			drawerStore.close()
 		}
+	}
+
+	function send() {
+		const modal = {
+			type: 'component',
+			component: { ref: SendMessage }
+		}
+
+		modalStore.trigger(modal)
 	}
 
 	/**
@@ -104,6 +116,7 @@
 				<EditPen element="job_title" classes="top-1 -right-4" />
 			</div>
 			<Social />
+			<button on:click={send} class="btn btn-sm variant-filled-primary mt-4 mb-1 mx-6">Send a message</button>
 		</div>
 		<hr class="my-4 border-t" />
 		<div class="group relative">

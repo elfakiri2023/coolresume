@@ -54,8 +54,7 @@ export const POST = async ({ request, locals }) => {
 	} catch (error) {
 		// @ts-ignore
 		console.log(error)
-		//return json({ message: error.errors[0]?.message }, { status: 400 })
-		return json({ message: 'error' }, { status: 400 })
+		return json({ message: error.errors[0]?.message }, { status: 400 })
 	}
 
 	const image = formData.image

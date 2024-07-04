@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms'
 	import Turnstile from '$lib/components/shared/Turnstile.svelte'
 	import { currentPage } from '$lib/stores/general'
+	import SocialIcons from '$lib/components/icons/SocialIcons.svelte'
 
 	currentPage.set('Login')
 
@@ -25,17 +26,42 @@
 			</div>
 			<button class="hidden" id="submit" type="submit"></button>
 			<Turnstile bind:this={turnstileComponent} />
-			<button
-				on:click={() => {
-					turnstileComponent.render()
-				}}
-				type="button"
-				class="btn variant-filled-primary font-medium rounded-lg">Login</button
-			>
+			<div class="flex flex-col items-center space-y-3">
+				<button
+					on:click={() => {
+						turnstileComponent.render()
+					}}
+					type="button"
+					class="btn variant-filled-primary font-medium rounded-lg px-4 py-2 w-full">Login</button
+				>
+				<!-- <div class="social-login">
+					<div class="flex items-center w-full p-2">
+						<div class="flex-grow border-t border-gray-400"></div>
+						<p class="text-sm mx-3">Or login with</p>
+						<div class="flex-grow border-t border-gray-400"></div>
+					</div>
+					<div class="flex items-center space-x-3">
+						<button
+							on:click={() => {
+								// Add your GitHub login function here
+							}}
+							type="button"
+							class="btn btn-sm variant-filled"
+						>
+							<span><SocialIcons name="discord" class="w-5 h-5 text-[#7289da]" /></span>
+							<span>Discord</span>
+						</button>
+						<a href="/login/github" class="btn btn-sm variant-filled">
+							<span><SocialIcons name="github" class="w-5 h-5" /></span>
+							<span>Github</span>
+						</a>
+					</div>
+				</div> -->
+			</div>
 			{#if form?.message}
 				<h3 id="message" class="alert-message text-center text-warning-600 mt-4">{form.message}</h3>
 			{/if}
-			<footer class="card-footer text-center mt-2">
+			<footer class="card-footer text-center mt-4">
 				Don't have an account? <a href="/sign-up" class="underline text-primary-600 dark:text-primary-100">Sign up</a>
 			</footer>
 		</form>

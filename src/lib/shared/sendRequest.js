@@ -4,10 +4,10 @@
  * @param {string|object} value
  * @returns {Promise<import('@skeletonlabs/skeleton').ToastSettings|Object>}
  */
-export async function sendRequest(key, value) {
+export async function sendRequest(key, value, endpoint = 'update') {
 	let response = { success: false, message: 'Something went wrong!' }
 
-	const request = await fetch('/api/update', {
+	const request = await fetch(`/api/${endpoint}`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
