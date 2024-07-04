@@ -14,6 +14,7 @@ Craft, share, and showcase your professional story easily, saving time and hassl
 -   CLI: [Wrangler](https://github.com/cloudflare/workers-sdk)
 -   Authentication: [Lucia](https://github.com/lucia-auth/lucia)
 -   ORM: [Drizzle](https://github.com/drizzle-team/drizzle-or)
+-   Email: [MailChannels](https://support.mailchannels.com/hc/en-us/articles/4565898358413-Sending-Email-from-Cloudflare-Workers-using-MailChannels-Send-API)
 -   Data validation: [Zod](https://github.com/colinhacks/zod)
 -   Captcha: [Turnstile](https://www.cloudflare.com/products/turnstile)
 
@@ -76,6 +77,10 @@ npm install
 
 Modify the environment variables by copying `.env.example` to `.env` and updating it with necessary details, including the keys obtained from Turnstile and specifying the CDN used for displaying stored images (either a custom domain or the one provided with Cloudflare R2).
 
+To get **CLOUDFLARE_ACCOUNT_ID** go to Workers & Pages -> Overview -> copy Account ID from the right sidebar.
+To get **CLOUDFLARE_DATABASE_ID** open D1 database you want to connect to and copy Database ID.
+To get **CLOUDFLARE_D1_TOKEN** go to My profile -> API Tokens and create token with D1 edit permissions.
+
 ### 7. Setup the Database
 
 run
@@ -123,3 +128,9 @@ Then, deploy your project by running
 ```bash
 npm run deploy
 ```
+
+## TO-DO
+
+-   ✅ Send email via sendgraid
+-   ⬜️ Social login (Google, Github)
+-   ⬜️ About section (Email, Location, Timezone ..)
