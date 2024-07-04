@@ -89,7 +89,7 @@ run
 npm run db:gen
 ```
 
-then
+then run
 
 ```bash
 npm run db:mig:local
