@@ -75,11 +75,14 @@ npm install
 
 ### 6. Configure Environment Variables
 
-Modify the environment variables by copying `.env.example` to `.env` and updating it with necessary details, including the keys obtained from Turnstile and specifying the CDN used for displaying stored images (either a custom domain or the one provided with Cloudflare R2).
+Modify the environment variables by copying `.env.example` to `.env` and updating it with necessary details
 
-To get **CLOUDFLARE_ACCOUNT_ID** go to Workers & Pages -> Overview -> copy Account ID from the right sidebar.
-To get **CLOUDFLARE_DATABASE_ID** open D1 database you want to connect to and copy Database ID.
-To get **CLOUDFLARE_D1_TOKEN** go to My profile -> API Tokens and create token with D1 edit permissions.
+-   **TURNSTILE_SECRET_KEY** Turnstile secret key
+-   **PUBLIC_TURNSTILE_SITE_KEY** Turnstile site key
+-   **PUBLIC_CDN_URL** The CDN url used for displaying stored images (either a custom domain or the one provided with Cloudflare R2).
+-   **CLOUDFLARE_ACCOUNT_ID** Go to Workers & Pages -> Overview -> copy Account ID from the right sidebar.
+-   **CLOUDFLARE_DATABASE_ID** Open D1 database you want to connect to and copy Database ID.
+-   **CLOUDFLARE_D1_TOKEN** Go to My profile -> API Tokens and create token with D1 edit permissions.
 
 ### 7. Setup the Database
 
