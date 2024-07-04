@@ -60,7 +60,7 @@ npm install
 
 -   **Create R2 Bucket**:
     ```bash
-    wrangler r2 bucket create coolresume_bucket
+    wrangler r2 bucket create coolresume-bucket
     ```
     > You can create a bucket via the Cloudflare dashboard or using the CLI.
 
@@ -93,7 +93,7 @@ npm run db:mig:local
 and to view and edit the Database in your browser using [Drizzle Studio](https://orm.drizzle.team/drizzle-studio/overview), run
 
 ```bash
-db:studio
+db:studio:dev
 ```
 
 ### 7. Local Development
