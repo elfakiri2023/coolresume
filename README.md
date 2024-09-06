@@ -101,7 +101,7 @@ npm run db:mig:local
 and to view and edit the Database in your browser using [Drizzle Studio](https://orm.drizzle.team/drizzle-studio/overview), run
 
 ```bash
-db:studio:dev
+db:studio:local
 ```
 
 ### 7. Local Development
@@ -136,4 +136,4 @@ npm run deploy
 
 -   ✅ Send email with MailChannels
 -   ⬜️ Social login (Google, Github)
--   ⬜️ About section (Email, Location, Timezone ..)
+-   ⬜️ About section (Email, Location, Phone number ..)
