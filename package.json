@@ -1,6 +1,6 @@
 {
 	"name": "cool-resume",
-	"version": "0.0.1",
+	"version": "0.0.3",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
@@ -18,8 +18,8 @@
 		"db:mig:local": "wrangler d1 migrations apply coolresume_db --local",
 		"db:mig:prod": "wrangler d1 migrations apply coolresume_db --remote",
 		"db:mig:preview": "wrangler d1 migrations apply coolresume_db --preview",
-		"db:studio:dev": "drizzle-kit studio",
-		"db:studio:prd": "cross-env NODE_ENV=production drizzle-kit studio"
+		"db:studio:local": "drizzle-kit studio",
+		"db:studio:prod": "cross-env NODE_ENV=production drizzle-kit studio"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20240620.0",
@@ -47,8 +47,10 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@floating-ui/dom": "^1.6.10",
 		"@lucia-auth/adapter-sqlite": "^3.0.1",
 		"arctic": "^1.9.1",
+		"better-sqlite3": "^9.6.0",
 		"cross-env": "^7.0.3",
 		"drizzle-orm": "^0.31.2",
 		"wrangler": "^3.60.2",

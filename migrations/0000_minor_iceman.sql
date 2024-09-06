@@ -1,0 +1,1 @@
+ALTER TABLE social RENAME COLUMN twitter TO x;

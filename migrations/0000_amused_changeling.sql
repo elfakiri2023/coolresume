@@ -1,9 +1,3 @@
-DROP TABLE IF EXISTS `experience`;
-DROP TABLE IF EXISTS `session`;
-DROP TABLE IF EXISTS `social`;
-DROP TABLE IF EXISTS `user`;
-DELETE FROM `d1_migrations`;
-
 CREATE TABLE `experience` (
 	`id` text PRIMARY KEY NOT NULL,
 	`user_id` text NOT NULL,
@@ -29,7 +23,7 @@ CREATE TABLE `social` (
 	`youtube` text,
 	`github` text,
 	`linkedin` text,
-	`twitter` text,
+	`x` text,
 	`instagram` text,
 	FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade
 );

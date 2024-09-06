@@ -30,7 +30,7 @@ const imageExtension = (file) => {
 
 export const POST = async ({ request, locals }) => {
 	if (!locals.user || !locals.user.id) {
-		return json({ status: 'error', message: 'You are not logged in' })
+		return json({ status: 'error', message: 'You are not logged in' }, { status: 401 })
 	}
 
 	// @ts-ignore

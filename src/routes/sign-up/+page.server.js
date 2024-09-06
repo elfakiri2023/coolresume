@@ -4,7 +4,6 @@ import { userTable, socialTable } from '$lib/server/db/schema'
 import { validateCaptcha } from '$lib/server/captcha'
 import { createPasswordHash } from '$lib/server/password-hasher'
 import { z } from 'zod'
-import { loggedIn } from '$lib/stores/general'
 
 export const load = async ({ locals }) => {
 	if (locals.user) return redirect(302, `/${locals.user.username}`)
@@ -62,7 +61,7 @@ export const actions = {
 				youtube: '#',
 				github: '#',
 				linkedin: '#',
-				twitter: '#',
+				x: '#',
 				instagram: '#'
 			})
 
@@ -93,7 +92,6 @@ export const actions = {
 			})
 		}
 
-		loggedIn.set(true)
 		return redirect(302, `/${username}?welcome`)
 	}
 }

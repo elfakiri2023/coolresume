@@ -37,7 +37,7 @@ export const socialTable = sqliteTable('social', {
 	youtube: text('youtube'),
 	github: text('github'),
 	linkedin: text('linkedin'),
-	twitter: text('twitter'),
+	x: text('x'),
 	instagram: text('instagram')
 })
 

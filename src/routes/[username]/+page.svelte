@@ -8,17 +8,19 @@
 
 	export let data
 
-	if ($page.url.searchParams.has('welcome') && data?.user?.id === data.resume?.user?.id) {
-		currentMode.set('edit')
+	$: {
+		if ($page.url.searchParams.has('welcome') && data?.user?.id === data.resume?.user?.id) {
+			currentMode.set('edit')
+		}
+
+		resume.set(data.resume)
+		canEdit.set($currentMode === 'edit')
+		currentPage.set(data.resume.user.full_name ?? data.resume.user.username)
+
+		currentMode.subscribe((value) => {
+			canEdit.set(value === 'edit')
+		})
 	}
-
-	resume.set(data.resume)
-	canEdit.set($currentMode === 'edit')
-	currentPage.set(data.resume.user.full_name ?? data.resume.user.username)
-
-	currentMode.subscribe((value) => {
-		canEdit.set(value === 'edit')
-	})
 </script>
 
 <div class="container px-0 md:px-8">

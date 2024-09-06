@@ -4,7 +4,6 @@ import { generateId } from 'lucia'
 import { eq } from 'drizzle-orm'
 import { userTable, experienceTable, socialTable } from '$lib/server/db/schema'
 import { fail, redirect } from '@sveltejs/kit'
-import { loggedIn } from '$lib/stores/general'
 
 export async function GET(event) {
 	const code = event.url.searchParams.get('code')
@@ -41,7 +40,6 @@ export async function GET(event) {
 				...sessionCookie.attributes
 			})
 
-			loggedIn.set(true)
 			return redirect(302, `/${username}`)
 		} else {
 			const userId = generateId(15)

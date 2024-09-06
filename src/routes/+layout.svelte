@@ -10,6 +10,10 @@
 	import Head from '$lib/components/shared/Head.svelte'
 	import { beforeNavigate } from '$app/navigation'
 	import { mobileNavOpen } from '$lib/stores/general'
+	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom'
+	import { storePopup } from '@skeletonlabs/skeleton'
+
+	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
 	beforeNavigate(() => mobileNavOpen.set(false))
 
@@ -21,8 +25,6 @@
 	initializeStores()
 
 	const drawerStore = getDrawerStore()
-
-	/* https://tourguidejs.com/docs/ */
 </script>
 
 <Modal />

@@ -2,7 +2,6 @@ import { fail, redirect } from '@sveltejs/kit'
 import { eq } from 'drizzle-orm'
 import { userTable } from '$lib/server/db/schema'
 import { verifyPasswordHash } from '$lib/server/password-hasher'
-import { loggedIn } from '$lib/stores/general'
 
 export const load = async ({ locals }) => {
 	if (locals.user) return redirect(302, `/${locals.user.username}`)
@@ -49,7 +48,6 @@ export const actions = {
 			...sessionCookie.attributes
 		})
 
-		loggedIn.set(true)
 		return redirect(302, `/${username}`)
 	}
 }

@@ -29,7 +29,7 @@ export const POST = async ({ request, locals }) => {
 			return json({ status: 'success', message: 'Your resume has been updated successfully' })
 		}
 	} else if (key === 'social') {
-		const referenceKeys = ['facebook', 'youtube', 'github', 'linkedin', 'twitter', 'instagram']
+		const referenceKeys = ['facebook', 'youtube', 'github', 'linkedin', 'x', 'instagram']
 		const objKeys = Object.keys(value)
 		if (referenceKeys.length === objKeys.length && referenceKeys.every((key) => objKeys.includes(key))) {
 			const result = await locals.DB.update(socialTable).set(value).where(eq(socialTable.user_id, locals.user.id))

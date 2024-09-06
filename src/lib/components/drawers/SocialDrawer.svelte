@@ -10,7 +10,7 @@
 
 {#each data as social}
 	<div>
-		<label for="username" class="label mb-2 text-sm font-medium">{social.name.charAt(0).toUpperCase() + social.name.slice(1)}</label>
+		<label for="username" class="label mb-2 text-sm font-medium">{social.name == 'x' ? 'X (Twitter)' : social.name.charAt(0).toUpperCase() + social.name.slice(1)}</label>
 		<div class="relative">
 			<input value={$resume.social[social.name]} on:input={(e) => ($resume.social[social.name] = e.target.value)} type="text" class="input pl-12 pr-4 py-2" />
 			<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

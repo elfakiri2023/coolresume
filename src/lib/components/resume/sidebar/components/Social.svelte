@@ -42,7 +42,7 @@
 
 	function buildList() {
 		let arr = []
-		for (let social of ['facebook', 'twitter', 'youtube', 'github', 'instagram', 'linkedin']) {
+		for (let social of ['facebook', 'x', 'youtube', 'github', 'instagram', 'linkedin']) {
 			arr.push({
 				name: social,
 				url: $resume.social[social]

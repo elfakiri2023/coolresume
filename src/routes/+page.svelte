@@ -1,6 +1,7 @@
 <script>
 	import { currentPage } from '$lib/stores/general'
 	import Features from '$lib/components/icons/Features.svelte'
+	import StarUs from '$lib/components/ui/StarUs.svelte'
 
 	currentPage.set('home')
 
@@ -89,5 +90,7 @@
 </section>
 
 <footer class="py-5 text-center">
-	<span>This script is open source, You can find the code source in github <a href="https://github.com/elfakiri2023/coolresume" class="text-primary-500 underline" target="_blank">here</a></span>
+	<span>Proudly open source, Check us out on <a href="https://github.com/elfakiri2023/coolresume" class="text-primary-500 underline" target="_blank">GitHub</a></span>
 </footer>
+
+<StarUs />

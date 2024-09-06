@@ -3,6 +3,13 @@
 	import GeneralIcons from '$lib/components/icons/GeneralIcons.svelte'
 	import { getDrawerStore, getToastStore } from '@skeletonlabs/skeleton'
 	import { sendRequest } from '$lib/shared/sendRequest'
+	import { popup } from '@skeletonlabs/skeleton'
+
+	const popupHover = {
+		event: 'hover',
+		target: 'popupHover',
+		placement: 'top'
+	}
 
 	const toastStore = getToastStore()
 	const drawerStore = getDrawerStore()
@@ -120,7 +127,11 @@
 </script>
 
 {#if $canEdit}
-	<button class={`absolute -top-8 right-0 ${classes}`} bind:this={btnElement} on:click={() => takeAction()}>
+	<button use:popup={popupHover} class={`absolute -top-8 right-0 ${classes} [&>*]:pointer-events-none`} bind:this={btnElement} on:click={() => takeAction()}>
 		<GeneralIcons name="edit" class="edit-pen" />
 	</button>
+
+	<div class="card px-2 py-1 text-sm variant-filled-primary z-[10]" data-popup="popupHover">
+		<p>Edit</p>
+	</div>
 {/if}
